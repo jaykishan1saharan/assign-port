@@ -1,0 +1,4 @@
+#pdfModal { transition: opacity 0.3s ease; }
+#pdfModal.flex { opacity: 1; }
+#pdfModal.hidden { opacity: 0; }
+body.dark { background-color: #1a1a1a; color: #f0f0f0; }
