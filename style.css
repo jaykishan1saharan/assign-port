@@ -1,4 +1,106 @@
-#pdfModal { transition: opacity 0.3s ease; }
-#pdfModal.flex { opacity: 1; }
-#pdfModal.hidden { opacity: 0; }
-body.dark { background-color: #1a1a1a; color: #f0f0f0; }
+/* Fade Animation */
+#pdfModal {
+  transition: opacity 0.3s ease;
+}
+
+#pdfModal.flex {
+  opacity: 1;
+}
+
+#pdfModal.hidden {
+  opacity: 0;
+}
+
+/* Dark Mode Transition */
+body.dark {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+/* Smooth fade animation */
+.fadeIn {
+  animation: fadeSlide 0.5s ease forwards;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reusable blue buttons */
+.btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeIn {
+  animation: slideIn 0.4s ease forwards;
+}
+
+#homeTitle:hover {
+  text-decoration: underline;
+  transition: text-decoration 0.3s ease;
+}
+
+#assignmentLabel {
+  animation: fadeSlide 0.6s ease forwards;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#subjectFilter,
+#searchBox {
+  transition: all 0.3s ease;
+}
+
+#subjectFilter:focus,
+#searchBox:focus {
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+#collegeButtons img {
+  transition: transform 0.4s ease;
+}
+
+#collegeButtons img:hover {
+  transform: scale(1.05);
+}
