@@ -71,28 +71,24 @@ function generateCollegeButtons() {
     // Create card container
     const card = document.createElement("div");
     card.className =
-      "w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transform transition hover:scale-105 hover:shadow-2xl cursor-pointer";
+      "w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transform transition hover:-translate-y-1 hover:shadow-2xl cursor-pointer";
 
-    // Create image element (inside card)
-    const img = document.createElement("img");
-    img.src = imgPath;
-    img.alt = displayName;
-    img.className = "w-full h-40 object-cover";
-    img.onerror = () => {
-      img.onerror = null; // prevents loop
-      img.src = "assets/pcu.jpg";
-    };
-
-    // Create card title section
-    const infoDiv = document.createElement("div");
-    infoDiv.className = "p-4 text-center bg-white dark:bg-gray-800";
-    infoDiv.innerHTML = `
-      <h3 class="text-lg font-semibold text-blue-600 dark:text-blue-300">${displayName}</h3>
+    // Inner card structure
+    card.innerHTML = `
+      <div class="rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+        <img 
+          src="${imgPath}" 
+          alt="${displayName}" 
+          class="w-full h-36 object-contain bg-gray-100 p-2 rounded-t-xl"
+          onerror="this.onerror=null;this.src='assets/default.jpg';"
+        >
+        <div class="p-4 text-center">
+          <h3 class="text-lg font-semibold text-blue-600 dark:text-blue-300">
+            ${displayName}
+          </h3>
+        </div>
+      </div>
     `;
-
-    // Append image + text into card
-    card.appendChild(img);
-    card.appendChild(infoDiv);
 
     // Click event
     card.onclick = () => selectCollege(college);
@@ -101,6 +97,7 @@ function generateCollegeButtons() {
     collegeButtons.appendChild(card);
   });
 }
+
 
 
 
@@ -405,6 +402,46 @@ showSection("landing");
 document.addEventListener("DOMContentLoaded", () => {
   subjectFilter?.addEventListener("change", renderAssignments);
   searchBox?.addEventListener("input", renderAssignments);
+});
+
+// 📱 Mobile Menu Toggle
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+}
+
+// 📧 Email form success alert
+const contactForm = document.querySelector('form[action*="formspree.io"]');
+if (contactForm) {
+  contactForm.addEventListener("submit", () => {
+    setTimeout(() => {
+      alert("✅ Your request has been sent! Jaikishan will contact you soon.");
+    }, 500);
+  });
+}
+
+// 🧭 Smooth scroll + show main sections
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", e => {
+    const targetId = link.getAttribute("href").substring(1);
+    const section = document.getElementById(targetId);
+    if (section) {
+      e.preventDefault();
+      // Show all main UI sections again
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("hidden"));
+      // Scroll smoothly
+      section.scrollIntoView({ behavior: "smooth" });
+      // Hide dropdown menu on mobile if open
+      const mobileMenu = document.getElementById("mobileMenu");
+      if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.add("hidden");
+      }
+    }
+  });
 });
 
 

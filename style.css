@@ -104,3 +104,15 @@ body.dark {
 #collegeButtons img:hover {
   transform: scale(1.05);
 }
+
+.college-card img {
+  transition: transform 0.4s ease;
+}
+
+.college-card:hover img {
+  transform: scale(1.05);
+}
+
+html {
+  scroll-behavior: smooth;
+}
