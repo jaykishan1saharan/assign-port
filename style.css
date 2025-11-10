@@ -116,3 +116,91 @@ body.dark {
 html {
   scroll-behavior: smooth;
 }
+
+#loginBtn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#loginBtn:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+#logoutBtn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#logoutBtn:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+#assignmentContainer {
+  animation: fadeSlide 0.5s ease forwards;
+}
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#pdfViewer {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+#pdfModal .close-btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#pdfModal .close-btn:hover {
+  background-color: #ef4444;
+  transform: scale(1.05);
+}
+#filterContainer {
+  animation: fadeSlide 0.4s ease forwards;
+}
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#subjectFilter,
+#searchBox {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+#subjectFilter:focus,
+#searchBox:focus {
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+  transform: translateY(-2px);
+}
+#collegeButtons img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+#collegeButtons img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.college-card img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.college-card:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+#homeTitle {
+  transition: all 0.2s ease;
+}
+#homeTitle:hover {
+  color: #dbeafe; /* light blue hover */
+  transform: scale(1.02);
+}
+#welcomeUser {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
