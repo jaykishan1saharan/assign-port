@@ -11,25 +11,35 @@
 
 <body id="body" class="bg-gray-100 text-gray-800 transition-all duration-500">
 
-  <!-- Header -->
-  <header class="bg-blue-600 text-white py-5 shadow-md text-center relative">
-    <h1 id="homeTitle" class="text-2xl font-bold cursor-pointer hover:underline">📘 Jaikishan’s Assignment Portal</h1>
+  <!-- 🧭 Navigation Header -->
+<header class="bg-blue-600 text-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Left: Website Title -->
+    <h1 id="homeTitle" class="text-xl font-bold cursor-pointer hover:underline">📘 Jaikishan’s Assignment Portal</h1>
 
-    <p id="welcomeUser" class="text-sm text-white mt-1"></p>
+    <!-- Middle: Navigation Links -->
+    <nav class="hidden md:flex space-x-6 text-sm font-medium">
+      <a href="#" class="hover:text-yellow-300 transition">Home</a>
+      <a href="#about" class="hover:text-yellow-300 transition">About</a>
+      <a href="#services" class="hover:text-yellow-300 transition">Services</a>
+      <a href="#contact" class="hover:text-yellow-300 transition">Contact</a>
+    </nav>
 
-    <div class="absolute top-4 right-4 flex items-center space-x-3">
-      <button id="themeToggle" class="bg-white text-blue-600 px-3 py-1 rounded-md">
-        🌙 Dark Mode
-      </button>
-      <button id="loginBtn" class="bg-green-500 text-white px-3 py-1 rounded-md">
-        🔑 Login
-      </button>
-      <button id="logoutBtn" class="bg-red-600 text-white px-3 py-1 rounded-md hidden">
-        🚪 Logout
-      </button>
-    </div>
-  </header>
+    <!-- Right: Theme Toggle -->
+    <button id="themeToggle" class="bg-white text-blue-600 px-3 py-1 rounded-md">🌙 Dark Mode</button>
 
+    <!-- Mobile Menu Button -->
+    <button id="menuBtn" class="md:hidden text-2xl focus:outline-none">☰</button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden flex-col bg-blue-700 text-white space-y-2 px-4 py-3">
+    <a href="#" class="block hover:text-yellow-300">Home</a>
+    <a href="#about" class="block hover:text-yellow-300">About</a>
+    <a href="#services" class="block hover:text-yellow-300">Services</a>
+    <a href="#contact" class="block hover:text-yellow-300">Contact</a>
+  </div>
+</header>
 
 
   <!-- Controls -->
@@ -86,20 +96,6 @@
     <div id="subjectButtons" class="flex flex-wrap justify-center gap-6"></div>
   </section>
 
-  <!-- 🔐 Google Login Section
-  <section id="loginSection" class="flex flex-col justify-center items-center min-h-[70vh] text-center">
-    <h2 class="text-2xl font-semibold text-blue-600 dark:text-blue-300 mb-4">
-      Restricted Access
-    </h2>
-    <p class="text-gray-700 dark:text-gray-300 mb-6">
-      Please sign in using your <b>@pcu.edu.in</b> college email to view assignments.
-    </p>
-    <button id="googleLogin" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
-      🔑 Sign in with Google
-    </button>
-  </section>
- -->
-
 
   <!-- ================= Assignment Section ================= -->
   <section id="assignmentSection" class="hidden px-6 py-10">
@@ -124,72 +120,69 @@
   </section>
 
   <!-- 📘 About Section -->
-  <section id="about" class="max-w-5xl mx-auto p-8 text-center">
-    <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">About Us</h2>
-    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-      Welcome to Jaikishan’s Assignment Portal — your one-stop solution for college assignment sharing.
-      We aim to simplify academic resource sharing among students in a clean, fast, and organized interface.
-    </p>
-  </section>
+<section id="about" class="max-w-5xl mx-auto p-8 text-center">
+  <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">About Us</h2>
+  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+    Welcome to Jaikishan’s Assignment Portal — your one-stop solution for college assignment sharing. 
+    We aim to simplify academic resource sharing among students in a clean, fast, and organized interface.
+  </p>
+</section>
 
-  <!-- ⚙️ Services Section -->
-  <section id="services" class="bg-gray-50 dark:bg-gray-900 py-10">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-6">Our Services</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold text-blue-500 mb-2">Assignment Library</h3>
-          <p class="text-gray-600 dark:text-gray-300">Access organized assignment solutions for all subjects and
-            semesters.</p>
-        </div>
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold text-blue-500 mb-2">Reports & Posters</h3>
-          <p class="text-gray-600 dark:text-gray-300">View and download academic reports, posters, and project
-            summaries.</p>
-        </div>
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold text-blue-500 mb-2">Previous Year Papers</h3>
-          <p class="text-gray-600 dark:text-gray-300">Prepare better with past papers and important question
-            collections.</p>
-        </div>
+<!-- ⚙️ Services Section -->
+<section id="services" class="bg-gray-50 dark:bg-gray-900 py-10">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-6">Our Services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-blue-500 mb-2">Assignment Library</h3>
+        <p class="text-gray-600 dark:text-gray-300">Access organized assignment solutions for all subjects and semesters.</p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-blue-500 mb-2">Reports & Posters</h3>
+        <p class="text-gray-600 dark:text-gray-300">View and download academic reports, posters, and project summaries.</p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-blue-500 mb-2">Previous Year Papers</h3>
+        <p class="text-gray-600 dark:text-gray-300">Prepare better with past papers and important question collections.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 📞 Contact Section -->
-  <section id="contact" class="max-w-5xl mx-auto p-8 text-center">
-    <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">Contact Us</h2>
-    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-      Need help finding a specific assignment, report, or project?
-      You can either send me a message directly via email or reach out instantly on WhatsApp.
-    </p>
+<!-- 📞 Contact Section -->
+<section id="contact" class="max-w-5xl mx-auto p-8 text-center">
+  <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">Contact Us</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+    Need help finding a specific assignment, report, or project?  
+    You can either send me a message directly via email or reach out instantly on WhatsApp.
+  </p>
 
-    <!-- 💌 Email Contact Form (Formspree) -->
-    <form action="https://formspree.io/f/xvgdpbwq" method="POST"
-      class="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
-      <input type="text" name="name" placeholder="Your Name" required
-        class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-      <input type="email" name="email" placeholder="Your Email" required
-        class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-      <textarea name="message" placeholder="Describe what you need (e.g., DSA Lab 4 report or Python project)" required
-        class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-        rows="4"></textarea>
+  <!-- 💌 Email Contact Form (Formspree) -->
+  <form action="https://formspree.io/f/xvgdpbwq" method="POST" 
+        class="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+    <input type="text" name="name" placeholder="Your Name" required
+           class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+    <input type="email" name="email" placeholder="Your Email" required
+           class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+    <textarea name="message" placeholder="Describe what you need (e.g., DSA Lab 4 report or Python project)" required
+              class="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" rows="4"></textarea>
 
-      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full">
-        📤 Send Email Request
-      </button>
-    </form>
+    <button type="submit"
+            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full">
+      📤 Send Email Request
+    </button>
+  </form>
 
-    <!-- 💬 WhatsApp Option -->
-    <div class="mt-8">
-      <p class="text-gray-700 dark:text-gray-300 mb-3">Prefer a quick chat?</p>
-      <a href="https://wa.me/919881900876?text=Hi%20Jaikishan!%20I%20need%20help%20with%20an%20assignment%20🙂"
-        target="_blank"
-        class="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-md transition transform hover:scale-105">
-        💬 Chat on WhatsApp
-      </a>
-    </div>
-  </section>
+  <!-- 💬 WhatsApp Option -->
+  <div class="mt-8">
+    <p class="text-gray-700 dark:text-gray-300 mb-3">Prefer a quick chat?</p>
+    <a href="https://wa.me/919881900876?text=Hi%20Jaikishan!%20I%20need%20help%20with%20an%20assignment%20🙂"
+       target="_blank"
+       class="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-md transition transform hover:scale-105">
+      💬 Chat on WhatsApp
+    </a>
+  </div>
+</section>
 
 
 
@@ -215,30 +208,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Firebase -->
-  <!-- ✅ Firebase (Compat version for browser scripts) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-
-  <script>
-    // Replace with your own config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCMMxtcC5N93ap81ca2BK83Cs-IQmMFJdI",
-      authDomain: "assign-port18.firebaseapp.com",
-      projectId: "assign-port18",
-      storageBucket: "assign-port18.firebasestorage.app",
-      messagingSenderId: "904972087833",
-      appId: "1:904972087833:web:031e436cccb7c6a560f088"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    console.log("🔥 Firebase initialized:", firebase.apps.length ? "Yes" : "No");
-
-  </script>
-
 
   <script src="assignments_data.js"></script>
   <script src="script.js"></script>

@@ -1,66 +1,3 @@
-// 🔐 Firebase Auth Logic
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const assignmentContainer = document.getElementById("container");
-
-// Hide assignments until login
-assignmentContainer.style.display = "none";
-
-// 🧠 Login button
-loginBtn.addEventListener("click", () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then(result => {
-      const email = result.user.email;
-      if (email.endsWith("@pcu.edu.in")) {
-        localStorage.setItem("authorizedUser", email);
-        alert(`✅ Welcome ${result.user.displayName}!`);
-        assignmentContainer.style.display = "grid";
-        loginBtn.classList.add("hidden");
-        logoutBtn.classList.remove("hidden");
-      } else {
-        alert("❌ Access denied. Please use your @pcu.edu.in college email.");
-        auth.signOut();
-      }
-    })
-    .catch(err => {
-      console.error("Firebase Login Error:", err);
-      alert("⚠️ Sign-in failed. Please try again.\n" + err.message);
-    });
-});
-
-// 🚪 Logout button
-logoutBtn.addEventListener("click", () => {
-  auth.signOut().then(() => {
-    alert("👋 Logged out successfully!");
-    assignmentContainer.style.display = "none";
-    loginBtn.classList.remove("hidden");
-    logoutBtn.classList.add("hidden");
-  });
-});
-
-// 🔁 Check login state on reload
-auth.onAuthStateChanged(user => {
-  const welcomeUser = document.getElementById("welcomeUser");
-  if (user) {
-    welcomeUser.textContent = `Welcome, ${user.displayName} 👋`;
-  } else {
-    welcomeUser.textContent = "";
-  }
-
-  if (user && user.email.endsWith("@pcu.edu.in")) {
-    assignmentContainer.style.display = "grid";
-    loginBtn.classList.add("hidden");
-    logoutBtn.classList.remove("hidden");
-  } else {
-    assignmentContainer.style.display = "none";
-    loginBtn.classList.remove("hidden");
-    logoutBtn.classList.add("hidden");
-  }
-});
-
-
-
 // ============================
 // Assignment Data (auto or manual)
 // ============================
@@ -121,21 +58,6 @@ function goToCollege() {
   generateCollegeButtons();
   updateBackButton();
 }
-
-// 🏠 Home navigation
-document.getElementById("homeTitle").addEventListener("click", () => {
-  // Hide all deep pages and show the main college selection again
-  if (auth.currentUser && auth.currentUser.email.endsWith("@pcu.edu.in")) {
-    // If user is logged in, show main assignment section (home)
-    showCollegeSelection();  // <-- this is your existing function to show college cards
-  } else {
-    // If not logged in, maybe prompt them
-    alert("🔒 Please log in first to access assignments!");
-  }
-
-  // Optional: scroll to top
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 
 function generateCollegeButtons() {
   const colleges = [...new Set(assignments.map(a => a.college))];
