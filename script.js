@@ -37,18 +37,41 @@ let selectedSemester = null;
 let selectedCategory = null;
 let selectedSubject = null;
 
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
 let darkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
 
 // ============================
 // Utility Functions
 // ============================
 function showSection(id) {
-  document.querySelectorAll("section").forEach((sec) => sec.classList.add("hidden"));
+
+  // App sections only (DO NOT include landing/about/services/contact)
+  const appSections = [
+    "collegeSection",
+    "semesterSection",
+    "categorySection",
+    "subjectSection",
+    "assignmentSection",
+    "adminPanel"
+  ];
+
+  // Hide only app sections
+  appSections.forEach(secId => {
+    const sec = document.getElementById(secId);
+    if (sec) sec.classList.add("hidden");
+  });
+
+  // Show requested section
   const target = document.getElementById(id);
-  target.classList.remove("hidden");
-  target.classList.add("fadeIn");
+  if (target) {
+    target.classList.remove("hidden");
+    target.classList.add("fadeIn");
+  }
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
 
 // ============================
 // Navigation Flow
@@ -106,6 +129,8 @@ function selectCollege(college) {
   generateSemesterButtons(college);
   showSection("semesterSection");
   updateBackButton();
+
+  updateBreadcrumb();
 }
 
 
@@ -115,6 +140,8 @@ function selectSemester(sem) {
   generateCategoryButtons();   // 👈 show categories dynamically
   showSection("categorySection");
   updateBackButton();
+
+  updateBreadcrumb();
 }
 
 
@@ -159,6 +186,8 @@ function selectCategory(cat) {
 
   updateAssignmentLabel();
   updateBackButton();
+
+  updateBreadcrumb();
 }
 
 
@@ -200,6 +229,8 @@ function selectSubject(sub) {
   renderAssignments();
   updateAssignmentLabel();
   updateBackButton();
+
+  updateBreadcrumb();
 }
 
 
@@ -349,18 +380,108 @@ function renderAssignments() {
 
   filtered.forEach(a => {
     const card = document.createElement("div");
+    const favIcon = isFavorite(a.file) ? "⭐" : "☆";
     card.className =
-      "bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-5 text-center transition transform hover:scale-105 hover:shadow-xl";
+      "bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex flex-col justify-between hover:shadow-lg transition";
+
     card.innerHTML = `
-      <div class="text-5xl mb-3">📄</div>
-      <h3 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-1">${a.title}</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">${a.subject}</p>
-      <button onclick="openPDF('${a.file}', '${a.title}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-        📂 Open
-      </button>
-    `;
+  <div>
+    <div class="flex justify-between items-center">
+      <h3 class="font-semibold text-blue-600 dark:text-blue-300">
+        📄 ${a.title}
+      </h3>
+      <span class="cursor-pointer text-xl"
+        onclick="toggleFavorite('${a.file}')">${favIcon}</span>
+    </div>
+
+    <span class="text-sm bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded mt-2 inline-block">
+      ${a.subject}
+    </span>
+  </div>
+
+  <div class="mt-4 flex justify-between">
+    <button class="bg-blue-600 text-white px-3 py-1 rounded"
+      onclick="openPDF('${a.file}', '${a.title}')">View</button>
+
+    <a href="${a.file}" download
+      class="bg-green-600 text-white px-3 py-1 rounded">Download</a>
+  </div>
+`;
     container.appendChild(card);
   });
+
+}
+
+function toggleFavorite(file) {
+  if (favorites.includes(file)) {
+    favorites = favorites.filter(f => f !== file);
+  } else {
+    favorites.push(file);
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  renderAssignments(); // refresh UI
+}
+
+function isFavorite(file) {
+  return favorites.includes(file);
+}
+
+function renderRecent() {
+  const list = document.getElementById("recentList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  recent.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "bg-white dark:bg-gray-800 p-3 rounded shadow cursor-pointer";
+    div.innerHTML = `📄 ${r.title}`;
+    div.onclick = () => openPDF(r.file, r.title);
+    list.appendChild(div);
+  });
+}
+
+renderRecent();
+
+
+function renderStats() {
+  const statsDiv = document.getElementById("stats");
+  if (!statsDiv) return;
+
+  const total = assignments.length;
+
+  const bySubject = {};
+  assignments.forEach(a => {
+    bySubject[a.subject] = (bySubject[a.subject] || 0) + 1;
+  });
+
+  statsDiv.innerHTML = `
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+      📚 Total Assignments<br><b>${total}</b>
+    </div>
+    ${Object.keys(bySubject).slice(0, 4).map(s => `
+      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+        📘 ${s}<br><b>${bySubject[s]}</b>
+      </div>
+    `).join("")}
+  `;
+}
+
+renderStats();
+
+
+function updateBreadcrumb() {
+  const bc = document.getElementById("breadcrumb");
+  if (!bc) return;
+
+  let path = ["Home"];
+
+  if (selectedCollege) path.push(selectedCollege);
+  if (selectedSemester) path.push(`Sem ${selectedSemester}`);
+  if (selectedCategory) path.push(selectedCategory);
+  if (selectedSubject) path.push(selectedSubject);
+
+  bc.textContent = path.join(" > ");
 }
 
 
@@ -368,19 +489,27 @@ function renderAssignments() {
 // ============================
 // PDF Modal Logic
 // ============================
-function openPDF(url, title) {
-  pdfViewer.src = url;
-  pdfTitle.textContent = title;
-  downloadLink.href = url;
+function openPDF(file, title) {
   pdfModal.classList.remove("hidden");
-  pdfModal.classList.add("flex");
+  pdfTitle.textContent = title;
+  pdfViewer.src = file;
+  downloadLink.href = file;
+
+  // Add to recent
+  recent = recent.filter(r => r.file !== file);
+  recent.unshift({ file, title });
+
+  if (recent.length > 5) recent.pop();
+
+  localStorage.setItem("recent", JSON.stringify(recent));
 }
+
 
 closeModal.addEventListener("click", () => {
   pdfModal.classList.add("hidden");
-  pdfModal.classList.remove("flex");
   pdfViewer.src = "";
 });
+
 
 pdfModal.addEventListener("click", (e) => {
   if (e.target === pdfModal) {
@@ -447,5 +576,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 updateBackButton();
 
+// Ensure home content is visible on load
+document.getElementById("publicContent").classList.remove("hidden");
 
 
